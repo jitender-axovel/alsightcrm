@@ -15,7 +15,7 @@
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user gray"></i></span>
                         <!--<input type="text" class="form-control" placeholder="Username">-->
-                        <?php echo $this->Form->input('text', array(
+                        <?php echo $this->Form->input('email', array(
 				'label' =>false,'class'=>"form-control",'placeholder'=>"Username","div"=>false));?>
                     </div>
 
