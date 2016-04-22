@@ -1,0 +1,97 @@
+<?php
+
+App::uses('AppController', 'Controller');
+
+/**
+ * Companies Controller
+ *
+ */
+class FiltersController extends AppController {
+
+    public $helpers = array('Html', 'Form', 'Session');
+    public $components = array('Session', 'Auth', 'Paginator');
+//    var $components = array('Auth');
+    /**
+     * Scaffold
+     *
+     * @var mixed
+     */
+    public $scaffold;
+
+    function beforeFilter() {
+        //  $this->Auth->userModel = 'User';
+        // $this->Auth->allow(array('index', 'view'));
+        // $user = $this->Auth->user();
+        //if(!$this->Acl->check('User::'.$user['User']['id'], 'Company', 'update')) die('you are not authorized');
+        //if(!$this->Access->check('Company', 'update')) die('you are not authorized');
+    }
+
+    /**
+     * index [this function is for filtering data by multiple filter]
+     *
+     * @param string NONE
+     * 
+     * @return void
+     */
+    public function index() {
+
+        $this->layout = "admin";
+        $this->loadModel('Opportunity');
+        $this->Opportunity->recursive = 2;
+        $this->set('allFilteredDatas', $this->Opportunity->find('all'));
+    }
+
+    /**
+     * ajax [this function is for filtering data by Ajax]
+     *
+     * @param string NONE
+     * 
+     * @return void
+     */
+    public function ajax() {
+
+        $this->loadModel('Opportunity');
+        $this->Opportunity->recursive = 2;
+        $this->set('allFilteredDatas', $this->Opportunity->find('all'));
+        if (!empty($_POST)) {
+            $conditions = array();
+            if ($_POST['datet'] != "All") {
+                $conditions['Opportunity.Last_update LIKE'] = $_POST['datet'] . "%";
+            }
+            if ($_POST['contactn'] != "All") {
+                $conditions['Contact.Contact_Name'] = $_POST['contactn'];
+            }
+            if ($_POST['companyn'] != "All") {
+                $conditions['Company.Company_name'] = $_POST['companyn'];
+            }
+            if ($_POST['opportunity'] != "All") {
+                $conditions['Opportunity.Opportunity_Name'] = $_POST['opportunity'];
+            }
+            if ($_POST['status'] != "All") {
+                $conditions['Opportunity.Status_details'] = $_POST['status'];
+            }
+
+            $this->set('allFilteredDatas', $this->Opportunity->find('all', array('conditions' => $conditions)));
+        }
+        //  $this->set('companyList',$this->Company->find('list',array('fields'=>array('CompanyID','Company_Name'))));
+        $allFiltered = $this->Opportunity->find('all');
+
+        if ($this->Session->check('companyName') != 1) {
+            $this->Session->write('companyName', '');
+            $Companynames = "<option value='All'>All Company</option>";
+            $Company12 = "";
+            foreach ($allFiltered as $crmData) {
+                if (!in_array($crmData['Company']['Company_Name'], $Company12)) {
+                    $Companynames = $Companynames . "<option value='" . $crmData['Company']['Company_Name'] . "'>" . $crmData['Company']['Company_Name'] . "</option>";
+
+                    $Company12[] = $crmData['Company']['Company_Name'];
+                }
+            }
+            $this->Session->write('companyName', $Companynames);
+//echo "sdg";
+        }
+        //  pr($this->Session->read('companyName'));die;
+        // echo "fasdf";   print_r($_SESSION);die;
+    }
+
+}

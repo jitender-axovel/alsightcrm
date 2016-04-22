@@ -1,0 +1,89 @@
+<?php
+App::uses('AppController', 'Controller');
+/**
+ * Companies Controller
+ *
+ */
+class EmployeesController extends AppController {
+     public $helpers = array('Html', 'Form', 'Session');
+    public $components = array('Session','Auth','Paginator');
+    public $uses=array('User');
+//    var $components = array('Auth');
+/**
+ * Scaffold
+ *
+ * @var mixed
+ */
+  public function index() {
+      $this->layout='admin';
+               $this->layout="admin";
+               $this->Paginator->settings=array('conditions'=>array('User.role'=>'employee'));
+               $this->set('users', $this->Paginator->paginate());
+
+    }
+     public function view($id) {
+        $this->layout="admin";
+        if (!$id) {
+            throw new NotFoundException(__('Invalid employee'));
+        }
+
+        $employee = $this->User->find('first',array('conditons'=>array('User.id=>$id')));
+        if (!$employee) {
+            throw new NotFoundException(__('Invalid employee'));
+        }
+        $this->set('employee', $employee);
+    }
+ public function add() {
+        $this->layout="admin";
+        if (!empty($this->request->data)) {
+          //  pr($_SESSION);die;
+            $this->User->create();
+            $user=$this->request->data;
+            $user['User']['password'] =  Security::hash($this->request->data['User']['password'],'sha1',true);
+            $user['User']['last_login'] = date('Y-m-d h:i:s');
+          //  $user['User']['company_id'] = $this->Session();
+            //pr($user);die;
+            if ($this->User->save($user)) {
+                $this->Session->setFlash(__('Your employee has been saved.'));
+                return $this->redirect(array('action' => 'index'));
+            }
+            $this->Session->setFlash(__('Unable to add your employee.'));
+        }
+    }
+    public function edit($id = null) {
+        $this->layout="admin";
+    if (!$id) {
+        throw new NotFoundException(__('Invalid employee'));
+    }
+
+    $employee = $this->User->find('first',array('conditons'=>array('User.employeeID=>$id')));
+    if (!$employee) {
+        throw new NotFoundException(__('Invalid employee'));
+    }
+
+    if ($this->request->is(array('user', 'put'))) {
+        $this->User->id = $id;
+        if ($this->User->save($this->request->data)) {
+            $this->Session->setFlash(__('Your employee has been updated.'));
+            return $this->redirect(array('action' => 'index'));
+        }
+        $this->Session->setFlash(__('Unable to update your employee.'));
+    }
+
+    if (!$this->request->data) {
+        $this->request->data = $employee;
+    }
+}
+public function delete($id) {
+    if ($this->request->is('get')) {
+        throw new MethodNotAllowedException();
+    }
+
+    if ($this->User->delete($id)) {
+        $this->Session->setFlash(
+            __('The employee with id: %s has been deleted.', h($id))
+        );
+        return $this->redirect(array('action' => 'index'));
+    }
+}
+}

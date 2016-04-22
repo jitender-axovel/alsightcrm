@@ -1,0 +1,92 @@
+﻿@font-face { 
+	font-family: 'OpenSans';
+	src:url(../fonts/OpenSans-Light.ttf);
+}
+body {
+	font-family: 'OpenSans';
+	font-weight: normal;
+	color: #606060;
+	margin: 0;
+	padding: 0;
+}
+input:focus {
+	border: none;
+	outline: none;
+}
+
+
+/* login css */
+
+#content {
+  width: 305px;
+  margin: 0 auto;
+}
+.login-header, .alert.alert-info { 
+	text-align: center;
+}
+#content #LoginForm { 
+	margin-top: 18px;
+}
+#content .login-box fieldset { 
+	border: none;
+}
+#content .login-box input {
+  	width: 79%;
+  	height: 23px;
+  	border-radius: 7px;
+  	border: 1px solid #b5b5b5;
+}
+#content .login-box a {
+	text-decoration: none;
+  	color: #606060;
+	font-size: 14px;
+}
+.submit {
+  width: 125px;
+  margin: 0 auto;
+}
+.submit .btn.btn-success {
+	padding: 13px;
+  	background: #00aeef;
+  	border: none !important;
+  	text-align: center;
+  	color: #fff;
+  	width: 100% !important;
+  	height: inherit !important;
+	cursor: pointer;
+	transition: all 0.4s ease;
+}
+.submit .btn.btn-success:hover { 
+	background:#606060;
+}
+.login-header h2 {
+	margin: 0;
+	font-weight: normal;
+}
+.login-box .alert.alert-info { 
+	display: none;
+}
+.login-box #UserEmail {
+	background:url(../img/crm-login-design-2_03.png) no-repeat right;
+	background-size: 50px;
+	padding: 13px 56px 13px 13px;
+}
+.login-box #UserPassword {
+	background:url(../img/crm-login-design-2_06.png) no-repeat right;
+	background-size: 50px;
+	padding: 13px 56px 13px 13px;
+}
+.login-header {
+  	margin-top: 50px;
+}
+.login-box p { 	
+	margin: 10px 0 0 0;
+}
+.skin-blue .row.center { text-align: center;}
+.center.login-box {
+    display: inline-block;
+    float: none !important;
+    width: 45%;
+}
+body.skin-blue { background: #333333;}
+.skin-blue #content{background: #333333;}

@@ -1,0 +1,65 @@
+
+    body {
+        color: red;
+        font-family: "Open Sans",sans-serif;
+        //background: url(img/bg_images.jpg) no-repeat center center fixed; 
+        //-webkit-background-size: cover;
+        //-moz-background-size: cover;
+        //-o-background-size: cover;
+        //background-size: cover;
+    }
+    #mainWrap {
+        background-color: #616161;
+        min-height: 100%;
+        overflow: auto;
+        padding-bottom: 60px;
+    }
+    #loggit {
+        background-color: #fff;
+        width: 480px;
+        margin: 6% auto 0;
+        padding: 20px 40px;
+        color: white;
+    }
+    #loggit h1 {
+        text-align: center;
+        font-size: 100px;
+        margin: 0 0 0px;
+    }
+    #loggit h3 {
+        text-align: center;
+        font-size: 18px;
+        color: #bbb;
+        margin: 0 0 20px;
+    }
+    #loggit .input-group-addon {
+        border: 0 none;
+    }
+    #loggit .form-control {
+        border: 0 none;
+    }
+    #loggit .form-control:focus {
+        box-shadow: none;
+    }
+    #loggit .formSubmit {
+        margin-bottom: 25px;
+    }
+    #loggit .submitWrap {
+        text-align: right;
+    }
+    #loggit .formNotice {
+        margin: 0;
+        font-size: 13px;
+    }
+    #loggit .formNotice span {
+        cursor: pointer;
+        color: #428BCA;
+    }
+    #loggit .formNotice span:hover,
+    #loggit .formNotice span:focus {
+        color: #2A6496;
+        text-decoration: underline;
+    }
+    #loggit #regForm {
+        display: none;
+    }
